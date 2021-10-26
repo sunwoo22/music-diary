@@ -59,4 +59,13 @@ public class DiaryController {
         diaryService.deletePost(id);
         return "redirect:/";
     }
+
+    @GetMapping("/diary/search")
+    public String search(@RequestParam(value="keyword") String keyword, Model model) {
+        List<DiaryDto> diaryDtoList = diaryService.searchPosts(keyword);
+
+        model.addAttribute("diaryList", diaryDtoList);
+
+        return "diary/list.html";
+    }
 }

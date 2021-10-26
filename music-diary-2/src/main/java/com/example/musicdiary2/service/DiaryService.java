@@ -64,6 +64,30 @@ public class DiaryService {
         diaryRepository.deleteById(id);
     }
 
+    @Transactional
+    public List<DiaryDto> searchPosts(String keyword) {
+        List<DiaryEntity> diaryEntities = diaryRepository.findByTitleContaining(keyword);
+        List<DiaryDto> diaryDtoList = new ArrayList<>();
+
+        if (diaryEntities.isEmpty()) return diaryDtoList;
+
+        for (DiaryEntity diaryEntity : diaryEntities) {
+            diaryDtoList.add(this.convertEntityToDto(diaryEntity));
+        }
+
+        return diaryDtoList;
+    }
+
+    private DiaryDto convertEntityToDto(DiaryEntity diaryEntity) {
+        return DiaryDto.builder()
+                .id(diaryEntity.getId())
+                .writer(diaryEntity.getWriter())
+                .title(diaryEntity.getTitle())
+                .singer(diaryEntity.getSinger())
+                .content(diaryEntity.getContent())
+                .createdDate(diaryEntity.getCreatedDate())
+                .build();
+    }
 
 
 }
