@@ -14,6 +14,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class DiaryService {
+
     private DiaryRepository diaryRepository;
 
     @Transactional
@@ -38,7 +39,7 @@ public class DiaryService {
 
     @Transactional
     public List<DiaryDto> getMyDiaryList(String writer) {
-        List<DiaryEntity> diaryEntities = diaryRepository.findByWriter(writer);
+        List<DiaryEntity> diaryEntities = diaryRepository.findAllByWriter(writer);
         List<DiaryDto> diaryDtoList = new ArrayList<>();
 
         for (DiaryEntity diaryEntity : diaryEntities) {

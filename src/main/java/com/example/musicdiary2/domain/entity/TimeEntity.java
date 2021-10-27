@@ -14,10 +14,13 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class TimeEntity {
+
     @CreatedDate
-    @Column(updatable = false)
+    @Column(columnDefinition = "datetime(6) default now(6)", updatable = false)
     private LocalDateTime createdDate;
 
     @LastModifiedDate
+    @Column(columnDefinition = "datetime(6) default now(6)")
     private LocalDateTime modifiedDate;
+
 }

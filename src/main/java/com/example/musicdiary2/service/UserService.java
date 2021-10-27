@@ -1,8 +1,10 @@
 package com.example.musicdiary2.service;
 
 import com.example.musicdiary2.domain.Role;
+import com.example.musicdiary2.domain.entity.DiaryEntity;
 import com.example.musicdiary2.domain.entity.UserEntity;
 import com.example.musicdiary2.domain.repository.UserRepository;
+import com.example.musicdiary2.dto.DiaryDto;
 import com.example.musicdiary2.dto.UserDto;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -48,5 +50,19 @@ public class UserService implements UserDetailsService {
         }
 
         return new User(userEntity.getEmail(), userEntity.getPassword(), authorities);
+    }
+
+    @Transactional
+    public UserDto getPost(Long id) {
+        Optional<UserEntity> userEntityWrapper = userRepository.findById(id);
+        UserEntity userEntity = userEntityWrapper.get();
+
+        UserDto userDto = UserDto.builder()
+                .id(userEntity.getId())
+                .email(userEntity.getEmail())
+                .password(userEntity.getPassword())
+                .build();
+
+        return userDto;
     }
 }

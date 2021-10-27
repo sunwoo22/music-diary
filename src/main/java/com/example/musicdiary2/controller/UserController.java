@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -21,12 +22,22 @@ public class UserController {
     private DiaryService diaryService;
 
     // 메인 페이지
-    @GetMapping("")
-    public String index(Model model) {
+    @GetMapping("/main")
+    public String dispMain(Model model) {
         List<DiaryDto> diaryList = diaryService.getDiaryList();
         model.addAttribute("diaryList", diaryList);
 
-        return "signuplogin/index";
+        return "view/main";
+    }
+
+    // 내 정보 페이지
+    @GetMapping("/mypage")
+    public String dispMypage(Principal principal, Model model) {
+        String username = principal.getName();
+        List<DiaryDto> myDiaryList = diaryService.getMyDiaryList(username);
+        model.addAttribute("myDiaryList", myDiaryList);
+
+        return "view/mypage";
     }
 
     // 회원가입 페이지
@@ -66,11 +77,7 @@ public class UserController {
         return "signuplogin/denied";
     }
 
-    // 내 정보 페이지
-    @GetMapping("/user/info")
-    public String dispMyInfo() {
-        return "signuplogin/myinfo";
-    }
+
 
     // 어드민 페이지
     @GetMapping("/admin")

@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Getter
 @Table(name = "diary")
 public class DiaryEntity extends TimeEntity {
@@ -17,7 +18,7 @@ public class DiaryEntity extends TimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 10, nullable = false)
+    @Column(length = 50, nullable = false)
     private String writer;
 
     @Column(length = 100, nullable = false)
@@ -40,4 +41,14 @@ public class DiaryEntity extends TimeEntity {
         this.content = content;
     }
 
+    @Override
+    public String toString() {
+        return "DiaryEntity{" +
+                "id=" + id +
+                ", writer='" + writer + '\'' +
+                ", title='" + title + '\'' +
+                ", singer='" + singer + '\'' +
+                ", content='" + content + '\'' +
+                '}';
+    }
 }

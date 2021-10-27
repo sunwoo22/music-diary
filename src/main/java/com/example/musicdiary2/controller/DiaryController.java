@@ -1,12 +1,15 @@
 package com.example.musicdiary2.controller;
 
 import com.example.musicdiary2.dto.DiaryDto;
+import com.example.musicdiary2.dto.UserDto;
 import com.example.musicdiary2.service.DiaryService;
+import com.example.musicdiary2.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -16,53 +19,48 @@ public class DiaryController {
 
     private DiaryService diaryService;
 
-//    @GetMapping("")
+//    @GetMapping("/")
 //    public String list(Model model) {
 //        List<DiaryDto> diaryList = diaryService.getDiaryList();
 //        model.addAttribute("diaryList", diaryList);
-//        return "signuplogin/index.html";
-//    }
-
-//    @GetMapping("../user/info")
-//    public String listMy(Model model, @RequestParam String writer) {
-//        List<DiaryDto> diaryList = diaryService.getMyDiaryList(writer);
-//        model.addAttribute("myDiaryList", diaryList);
 //        return "diary/list.html";
 //    }
 
-    @GetMapping("/post")
-    public String write() {
+
+    @GetMapping("/diary/write")
+    public String write(Principal principal, Model model) {
+        String username = principal.getName();
+        model.addAttribute("username", username);
         return "diary/write.html";
     }
 
-    @PostMapping("/post")
-//    @RequestMapping(value = "/post", method = {RequestMethod.POST})
+    @PostMapping("/diary/write")
     public String write(DiaryDto diaryDto) {
         diaryService.savePost(diaryDto);
-        return "redirect:/";
+        return "redirect:/mypage";
     }
 
-    @GetMapping("/post/{id}")
+    @GetMapping("/diary/{id}")
     public String detail(@PathVariable("id") Long id, Model model) {
         DiaryDto diaryDto = diaryService.getPost(id);
         model.addAttribute("diaryDto", diaryDto);
         return "diary/detail.html";
     }
 
-    @GetMapping("/post/edit/{id}")
+    @GetMapping("/diary/edit/{id}")
     public String edit(@PathVariable("id") Long id, Model model) {
         DiaryDto diaryDto = diaryService.getPost(id);
         model.addAttribute("diaryDto", diaryDto);
         return "diary/update.html";
     }
 
-    @PutMapping("/post/edit/{id}")
+    @PutMapping("/diary/edit/{id}")
     public String update(DiaryDto diaryDto) {
         diaryService.savePost(diaryDto);
         return "redirect:/";
     }
 
-    @DeleteMapping("/post/{id}")
+    @DeleteMapping("/diary/{id}")
     public String delete(@PathVariable("id") Long id) {
         diaryService.deletePost(id);
         return "redirect:/";

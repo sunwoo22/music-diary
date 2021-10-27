@@ -15,7 +15,7 @@
 <!--<a th:href="@{/post}">글쓰기</a>-->
 
 <!-- 검색 form -->
-<form action="/board/search" method="GET">
+<form action="/diary/search" method="GET">
     <div>
         <input name="keyword" type="text" placeholder="검색어를 입력해주세요">
     </div>
@@ -38,7 +38,7 @@
     <!-- CONTENTS !-->
     <tr th:each="diary : ${diaryList}">
         <td>
-            <a th:href="@{'/post/' + ${diary.id}}">
+            <a th:href="@{'/diary/' + ${diary.id}}">
                 <span th:text="${diary.title}"></span>
             </a>
         </td>

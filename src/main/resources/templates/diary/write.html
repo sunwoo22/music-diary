@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<form action="/post" method="post">
-
-    작성자 : <input type="text" name="writer"> <br>
-    제목 : <input type="text" name="title"> <br>
+<form action="/diary/write" method="post">
+    작성자 : <input type="text" name="writer" th:value="${username}" readonly="readonly"> <br>
+    제목 : <input type="text" required="required" name="title"> <br>
     가수 : <input type="text" name="singer"> <br>
     <textarea name="content"></textarea><br>
 
@@ -17,5 +16,7 @@
 
 
 </form>
+
+
 </body>
 </html>

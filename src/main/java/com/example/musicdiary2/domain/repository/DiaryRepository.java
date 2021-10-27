@@ -10,6 +10,6 @@ public interface DiaryRepository extends JpaRepository<DiaryEntity, Long> {
 
     List<DiaryEntity> findByTitleContaining(String keyword);
 
-    List<DiaryEntity> findByWriter(String writer);
+    List<DiaryEntity> findAllByWriter(String writer);
 
 }

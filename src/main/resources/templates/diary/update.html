@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<form th:action="@{'/post/edit/' + ${diaryDto.id}}" method="post">
+<form th:action="@{'/diary/edit/' + ${diaryDto.id}}" method="post">
     <input type="hidden" name="_method" value="put"/>
     <input type="hidden" name="id" th:value="${diaryDto.id}"/>
 
