@@ -11,17 +11,24 @@ import java.util.List;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping(value = "/music-diary")
+//@RequestMapping(value = "/music-diary")
 public class DiaryController {
 
     private DiaryService diaryService;
 
-    @GetMapping("")
-    public String list(Model model) {
-        List<DiaryDto> diaryList = diaryService.getDiaryList();
-        model.addAttribute("diaryList", diaryList);
-        return "diary/list.html";
-    }
+//    @GetMapping("")
+//    public String list(Model model) {
+//        List<DiaryDto> diaryList = diaryService.getDiaryList();
+//        model.addAttribute("diaryList", diaryList);
+//        return "signuplogin/index.html";
+//    }
+
+//    @GetMapping("../user/info")
+//    public String listMy(Model model, @RequestParam String writer) {
+//        List<DiaryDto> diaryList = diaryService.getMyDiaryList(writer);
+//        model.addAttribute("myDiaryList", diaryList);
+//        return "diary/list.html";
+//    }
 
     @GetMapping("/post")
     public String write() {
@@ -29,6 +36,7 @@ public class DiaryController {
     }
 
     @PostMapping("/post")
+//    @RequestMapping(value = "/post", method = {RequestMethod.POST})
     public String write(DiaryDto diaryDto) {
         diaryService.savePost(diaryDto);
         return "redirect:/";

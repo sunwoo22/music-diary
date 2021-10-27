@@ -37,6 +37,26 @@ public class DiaryService {
     }
 
     @Transactional
+    public List<DiaryDto> getMyDiaryList(String writer) {
+        List<DiaryEntity> diaryEntities = diaryRepository.findByWriter(writer);
+        List<DiaryDto> diaryDtoList = new ArrayList<>();
+
+        for (DiaryEntity diaryEntity : diaryEntities) {
+            DiaryDto diaryDto = DiaryDto.builder()
+                    .id(diaryEntity.getId())
+                    .writer(diaryEntity.getWriter())
+                    .title(diaryEntity.getTitle())
+                    .singer(diaryEntity.getSinger())
+                    .content(diaryEntity.getContent())
+                    .createdDate(diaryEntity.getCreatedDate())
+                    .build();
+
+            diaryDtoList.add(diaryDto);
+        }
+        return diaryDtoList;
+    }
+
+    @Transactional
     public Long savePost(DiaryDto diaryDto) {
         return diaryRepository.save(diaryDto.toEntity()).getId();
     }

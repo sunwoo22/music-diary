@@ -1,23 +1,31 @@
 package com.example.musicdiary2.controller;
 
-import com.example.musicdiary2.dto.MemberDto;
-import com.example.musicdiary2.service.MemberService;
+import com.example.musicdiary2.dto.DiaryDto;
+import com.example.musicdiary2.dto.UserDto;
+import com.example.musicdiary2.service.DiaryService;
+import com.example.musicdiary2.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @AllArgsConstructor
 //@RequestMapping(value = "/login2")
-public class MemberController {
+public class UserController {
 
-    private MemberService memberService;
+    private UserService userService;
+    private DiaryService diaryService;
 
     // 메인 페이지
     @GetMapping("")
-    public String index() {
+    public String index(Model model) {
+        List<DiaryDto> diaryList = diaryService.getDiaryList();
+        model.addAttribute("diaryList", diaryList);
+
         return "signuplogin/index";
     }
 
@@ -29,8 +37,8 @@ public class MemberController {
 
     // 회원가입 처리
     @PostMapping("/user/signup")
-    public String execSignup(MemberDto memberDto) {
-        memberService.joinUser(memberDto);
+    public String execSignup(UserDto userDto) {
+        userService.joinUser(userDto);
         return "redirect:/user/login";
     }
 

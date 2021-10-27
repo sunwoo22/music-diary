@@ -1,7 +1,8 @@
 package com.example.musicdiary2.config;
 
-import com.example.musicdiary2.service.MemberService;
+import com.example.musicdiary2.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -18,11 +19,17 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private MemberService memberService;
+    @Autowired
+    private UserService userService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
     }
 
     @Override
@@ -34,28 +41,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http
+        .authorizeRequests()
                 // 페이지 권한 설정
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/user/myinfo").hasRole("MEMBER")
                 .antMatchers("/**").permitAll()
-                .and() // 로그인 설정
+            .and() // 로그인 설정
                 .formLogin()
                 .loginPage("/user/login")
                 .defaultSuccessUrl("/user/login/result")
+//                .failureUrl("/user/loginFailure")
                 .permitAll()
-                .and() // 로그아웃 설정
+            .and() // 로그아웃 설정
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
                 .logoutSuccessUrl("/user/logout/result")
                 .invalidateHttpSession(true)
-                .and()
-                // 403 예외처리 핸들링
-                .exceptionHandling().accessDeniedPage("/user/denied");
+            .and() // 403 예외처리 핸들링
+                .exceptionHandling().accessDeniedPage("/user/denied")
+//            .and() //다른 부분은 무시해주시고 이 부분만 잘 사용 해주시면 됩니다.
+//                .csrf()
+//                .ignoringAntMatchers("/user/myinfo")
+            .and() // spring csrf 비활성화 - post 메소드 허용
+                .csrf().disable();
+
     }
 
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(memberService).passwordEncoder(passwordEncoder());
-    }
+
 }
