@@ -14,19 +14,20 @@ public class DiaryDto {
     private String writer;
     private String title;
     private String singer;
-//    private String imageSrc;
+    private String imgSrc;
     private String content;
     private LocalDateTime createdDate;
 //    private LocalDateTime modifiedDate;
 
     @Builder
 //    public DiaryDto(Long id, String title, String content, String writer, LocalDateTime createdDate, LocalDateTime modifiedDate) {
-    public DiaryDto(Long id, String writer, String title,
-                    String singer, String content, LocalDateTime createdDate) {
+    public DiaryDto(Long id, String writer, String title, String singer,
+                    String imgSrc, String content, LocalDateTime createdDate) {
         this.id = id;
         this.writer = writer;
         this.title = title;
         this.singer = singer;
+        this.imgSrc = imgSrc;
         this.content = content;
         this.createdDate = createdDate;
 //        this.modifiedDate = modifiedDate;
@@ -38,6 +39,7 @@ public class DiaryDto {
                 .writer(writer)
                 .title(title)
                 .singer(singer)
+                .imgSrc(imgSrc)
                 .content(content)
                 .build();
         return diaryEntity;

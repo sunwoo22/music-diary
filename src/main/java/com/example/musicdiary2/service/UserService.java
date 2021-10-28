@@ -44,8 +44,7 @@ public class UserService implements UserDetailsService {
 
         if (("admin@example.com").equals(userEmail)) {
             authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
-        }
-        else {
+        } else {
             authorities.add(new SimpleGrantedAuthority(Role.USER.getValue()));
         }
 

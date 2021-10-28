@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class DiaryController {
     }
 
     @PostMapping("/diary/write")
-    public String write(DiaryDto diaryDto) {
+    public String write(DiaryDto diaryDto) throws IOException {
         diaryService.savePost(diaryDto);
         return "redirect:/mypage";
     }
@@ -55,7 +56,7 @@ public class DiaryController {
     }
 
     @PutMapping("/diary/edit/{id}")
-    public String update(DiaryDto diaryDto) {
+    public String update(DiaryDto diaryDto) throws IOException {
         diaryService.savePost(diaryDto);
         return "redirect:/";
     }
@@ -72,4 +73,8 @@ public class DiaryController {
         model.addAttribute("diaryList", diaryDtoList);
         return "diary/list.html";
     }
+
+
+
+
 }

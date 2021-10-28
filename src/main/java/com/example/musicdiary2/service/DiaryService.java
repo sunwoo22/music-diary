@@ -7,9 +7,12 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static com.example.musicdiary2.music.MusicInfo.getMusicImg;
 
 @Service
 @AllArgsConstructor
@@ -28,6 +31,7 @@ public class DiaryService {
                     .writer(diaryEntity.getWriter())
                     .title(diaryEntity.getTitle())
                     .singer(diaryEntity.getSinger())
+                    .imgSrc(diaryEntity.getImgSrc())
                     .content(diaryEntity.getContent())
                     .createdDate(diaryEntity.getCreatedDate())
                     .build();
@@ -48,6 +52,7 @@ public class DiaryService {
                     .writer(diaryEntity.getWriter())
                     .title(diaryEntity.getTitle())
                     .singer(diaryEntity.getSinger())
+                    .imgSrc(diaryEntity.getImgSrc())
                     .content(diaryEntity.getContent())
                     .createdDate(diaryEntity.getCreatedDate())
                     .build();
@@ -57,8 +62,14 @@ public class DiaryService {
         return diaryDtoList;
     }
 
+
     @Transactional
-    public Long savePost(DiaryDto diaryDto) {
+    public Long savePost(DiaryDto diaryDto) throws IOException {
+//        diaryDto.setImgSrc(getMusicImg(diaryDto.getTitle(), diaryDto.getSinger()));
+        String[] result = getMusicImg(diaryDto.getTitle(), diaryDto.getSinger());
+        diaryDto.setTitle(result[0]);
+        diaryDto.setSinger(result[1]);
+        diaryDto.setImgSrc(result[2]);
         return diaryRepository.save(diaryDto.toEntity()).getId();
     }
 
@@ -72,6 +83,7 @@ public class DiaryService {
                 .writer(diaryEntity.getWriter())
                 .title(diaryEntity.getTitle())
                 .singer(diaryEntity.getSinger())
+                .imgSrc(diaryEntity.getImgSrc())
                 .content(diaryEntity.getContent())
                 .createdDate(diaryEntity.getCreatedDate())
                 .build();
@@ -104,6 +116,7 @@ public class DiaryService {
                 .writer(diaryEntity.getWriter())
                 .title(diaryEntity.getTitle())
                 .singer(diaryEntity.getSinger())
+                .imgSrc(diaryEntity.getImgSrc())
                 .content(diaryEntity.getContent())
                 .createdDate(diaryEntity.getCreatedDate())
                 .build();

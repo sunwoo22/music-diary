@@ -27,9 +27,10 @@
     <thead>
     <tr>
 <!--        <th class="one wide">번호</th>-->
-        <th class="ten wide">제목</th>
-        <th class="ten wide">가수</th>
-        <th class="two wide">작성자</th>
+        <th>제목</th>
+        <th>가수</th>
+        <th>앨범아트</th>
+        <th>작성자</th>
 <!--        <th class="three wide">작성일</th>-->
     </tr>
     </thead>
@@ -44,6 +45,10 @@
         </td>
         <td>
             <span th:text="${diary.singer}"></span>
+        </td>
+        <td>
+            <img th:src="${diary.imgSrc}" width="200px" height="200px" />
+<!--            <span th:text="${diary.imgSrc}"></span>-->
         </td>
         <td>
             <span th:text="${diary.writer}"></span>
