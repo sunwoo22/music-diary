@@ -6,6 +6,7 @@
 </head>
 <body>
 
+<img th:src="${diaryDto.imgSrc}" width="300px" height="300px">
 <h2 th:text="${diaryDto.title}"></h2>
 <h3 th:text="${diaryDto.singer}"></h3>
 <p th:inline="text">[[${#temporals.format(diaryDto.createdDate, 'yyyy-MM-dd HH:mm')}]]</p>

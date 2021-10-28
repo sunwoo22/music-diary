@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.example.musicdiary2.music.MusicInfo.getMusicImg;
+import static com.example.musicdiary2.music.MusicInfo.getMusicInfo;
 
 @Service
 @AllArgsConstructor
@@ -62,14 +62,17 @@ public class DiaryService {
         return diaryDtoList;
     }
 
+    @Transactional
+    public String[] setMusic(String title, String singer) throws IOException {
+        String[] result = getMusicInfo(title, singer);
+        if (result == null) {
+            return null;
+        }
+        return result;
+    }
 
     @Transactional
-    public Long savePost(DiaryDto diaryDto) throws IOException {
-//        diaryDto.setImgSrc(getMusicImg(diaryDto.getTitle(), diaryDto.getSinger()));
-        String[] result = getMusicImg(diaryDto.getTitle(), diaryDto.getSinger());
-        diaryDto.setTitle(result[0]);
-        diaryDto.setSinger(result[1]);
-        diaryDto.setImgSrc(result[2]);
+    public Long savePost(DiaryDto diaryDto) {
         return diaryRepository.save(diaryDto.toEntity()).getId();
     }
 

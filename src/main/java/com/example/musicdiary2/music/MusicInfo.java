@@ -12,14 +12,18 @@ import java.util.regex.Pattern;
 public class MusicInfo {
 
     public static void main(String[] args) throws IOException {
-        String title = "ge";
+        String title = "gee";
         String singer = "소녀시대";
-        getMusicImg(title, singer);
+        getMusicInfo(title, singer);
     }
 
-    public static String[] getMusicImg(String title, String singer) throws IOException {
+    public static String[] getMusicInfo(String title, String singer) throws IOException {
 
         String musicId = getMusicId(title, singer);
+
+        if (musicId == null) {
+            return null;
+        }
 
         final String url = "https://www.melon.com/song/detail.htm?songId=" + musicId;
 
@@ -28,10 +32,6 @@ public class MusicInfo {
 
         String mTitle = document.select("div.song_name")
                 .text().substring(3);
-
-        if (mTitle == null) {
-            return null;
-        }
 
         String mSinger = document.select("div.artist a.artist_name")
                 .attr("title");
@@ -54,11 +54,9 @@ public class MusicInfo {
 
     public static String getMusicId(String title, String singer) throws IOException {
 
-//        String title = "gee";
         if (getType(title)) {
             URLEncoder.encode(title, "UTF-8");
         }
-//        String singer = "소녀시대";
         if (getType(singer)) {
             URLEncoder.encode(singer, "UTF-8");
         }
@@ -67,6 +65,12 @@ public class MusicInfo {
 
         Connection conn = Jsoup.connect(url);
         Document document = conn.get();
+
+        // 곡 수 확인
+        String check = document.select("div.section_song em").text();
+        if (check.equals("0")) {
+            return null;
+        }
 
         Elements musicTableBody = document.select("div.tb_list.d_song_list.songTypeOne tbody tr");
         Elements td = musicTableBody.select("td.t_left div.wrap.pd_none");
