@@ -12,7 +12,11 @@ spring:
     show-sql: true
     hibernate:
       format_sql: true
-      ddl-auto: create
+      ddl-auto: none
+#      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
 
   mvc:
     hiddenmethod:

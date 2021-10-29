@@ -1,5 +1,6 @@
 package com.example.musicdiary2.domain.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -16,11 +17,14 @@ import java.time.LocalDateTime;
 public abstract class TimeEntity {
 
     @CreatedDate
-    @Column(columnDefinition = "datetime(6) default now(6)", updatable = false)
+    @Column(columnDefinition = "datetime default now()", updatable = false)
     private LocalDateTime createdDate;
 
-    @LastModifiedDate
-    @Column(columnDefinition = "datetime(6) default now(6)")
-    private LocalDateTime modifiedDate;
+//    @LastModifiedDate
+//    @Column(columnDefinition = "datetime default now()")
+//    private LocalDate modifiedDate;
 
+//    public TimeEntity(LocalDateTime createdDate) {
+//        this.createdDate = createdDate;
+//    }
 }

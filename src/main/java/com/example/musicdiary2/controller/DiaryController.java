@@ -20,12 +20,18 @@ public class DiaryController {
 
     private DiaryService diaryService;
 
+    @GetMapping("/calendar")
+    public String calendar() {
+        return "view/calendar.html";
+    }
+
 //    @GetMapping("/")
 //    public String list(Model model) {
 //        List<DiaryDto> diaryList = diaryService.getDiaryList();
 //        model.addAttribute("diaryList", diaryList);
 //        return "diary/list.html";
 //    }
+
 
     @GetMapping("/diary/music")
     public String music() {

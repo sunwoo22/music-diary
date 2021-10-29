@@ -21,7 +21,6 @@ public class DiaryDto {
 //    private LocalDateTime modifiedDate;
 
     @Builder
-//    public DiaryDto(Long id, String title, String content, String writer, LocalDateTime createdDate, LocalDateTime modifiedDate) {
     public DiaryDto(Long id, String writer, String title, String singer,
                     String imgSrc, int mood, String content, LocalDateTime createdDate) {
         this.id = id;

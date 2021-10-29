@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -58,8 +60,18 @@ class DiaryRepositoryTest {
         diaryRepository.save(diary1);
         diaryRepository.save(diary2);
 
-        diaryRepository.findAllByWriter("newaaa@example.com").forEach(System.out::println);
+        diaryRepository.findAllByWriterOrderByIdDesc("aaa@example.com").forEach(System.out::println);
 
+    }
+
+    @Test
+    void getPostTest() {
+        LocalDateTime createdDate = LocalDateTime.of(2021, 10, 1, 00, 00);
+        LocalDateTime createdDate1 = LocalDateTime.of(2021, 10, 2, 00, 00);
+
+//        diaryRepository.findAll().forEach(System.out::println);
+//        System.out.println(diaryRepository.findByCreatedDate(createdDate, createdDate1));
+        System.out.println(diaryRepository.findByTitle1("title1"));
     }
 
 }
