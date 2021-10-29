@@ -12,18 +12,32 @@
     제목 : <input type="text" name="title" th:value="${title}" readonly="readonly"> <br>
     가수 : <input type="text" name="singer" th:value="${singer}" readonly="readonly"> <br>
     앨범아트 : <br> <img th:src="${imgSrc}" width="200px" height="200px"> <br>
+    기분 :
+        <label><input type="radio" name="mood" value="1">기쁨</label>
+        <label><input type="radio" name="mood" value="2">편안</label>
+        <label><input type="radio" name="mood" value="3">우울</label>
+        <label><input type="radio" name="mood" value="4">화남</label> <br>
     내용 : <textarea name="content"></textarea><br>
-<!--    앨범아트 : -->
+
+
+
+<!--    hidden : -->
     <input type="hidden" name="imgSrc" th:value="${imgSrc}"> <br>
-<!--    작성자 : -->
     <input type="hidden" name="writer" th:value="${username}" readonly="readonly"> <br>
 
+<!--    버튼-->
     <input type="submit" value="등록">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 
 
 </form>
 
+<!--<script type="text/javascript">-->
+<!--$(document).ready(function() {-->
+<!--     var inputValue = $("input[name='testInput']:checked").val();-->
+<!--     alert(inputValue);-->
+<!--});-->
+<!--</script>-->
 
 </body>
 </html>

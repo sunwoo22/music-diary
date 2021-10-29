@@ -22,7 +22,7 @@ public class DiaryService {
 
     @Transactional
     public List<DiaryDto> getDiaryList() {
-        List<DiaryEntity> diaryEntities = diaryRepository.findAll();
+        List<DiaryEntity> diaryEntities = diaryRepository.findAllByOrderByIdDesc();
         List<DiaryDto> diaryDtoList = new ArrayList<>();
 
         for (DiaryEntity diaryEntity : diaryEntities) {
@@ -32,6 +32,7 @@ public class DiaryService {
                     .title(diaryEntity.getTitle())
                     .singer(diaryEntity.getSinger())
                     .imgSrc(diaryEntity.getImgSrc())
+                    .mood(diaryEntity.getMood())
                     .content(diaryEntity.getContent())
                     .createdDate(diaryEntity.getCreatedDate())
                     .build();
@@ -43,7 +44,7 @@ public class DiaryService {
 
     @Transactional
     public List<DiaryDto> getMyDiaryList(String writer) {
-        List<DiaryEntity> diaryEntities = diaryRepository.findAllByWriter(writer);
+        List<DiaryEntity> diaryEntities = diaryRepository.findAllByWriterOrderByIdDesc(writer);
         List<DiaryDto> diaryDtoList = new ArrayList<>();
 
         for (DiaryEntity diaryEntity : diaryEntities) {
@@ -53,6 +54,7 @@ public class DiaryService {
                     .title(diaryEntity.getTitle())
                     .singer(diaryEntity.getSinger())
                     .imgSrc(diaryEntity.getImgSrc())
+                    .mood(diaryEntity.getMood())
                     .content(diaryEntity.getContent())
                     .createdDate(diaryEntity.getCreatedDate())
                     .build();
@@ -87,6 +89,7 @@ public class DiaryService {
                 .title(diaryEntity.getTitle())
                 .singer(diaryEntity.getSinger())
                 .imgSrc(diaryEntity.getImgSrc())
+                .mood(diaryEntity.getMood())
                 .content(diaryEntity.getContent())
                 .createdDate(diaryEntity.getCreatedDate())
                 .build();
@@ -120,6 +123,7 @@ public class DiaryService {
                 .title(diaryEntity.getTitle())
                 .singer(diaryEntity.getSinger())
                 .imgSrc(diaryEntity.getImgSrc())
+                .mood(diaryEntity.getMood())
                 .content(diaryEntity.getContent())
                 .createdDate(diaryEntity.getCreatedDate())
                 .build();

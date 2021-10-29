@@ -29,18 +29,22 @@ public class DiaryEntity extends TimeEntity {
     @Column(length = 200)
     private String imgSrc;
 
+    @Column(length = 1)
+    private int mood; // 1: 기쁨 2: 편안 3: 우울 4: 화남
+
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
     @Builder
 //    public DiaryEntity(Long id, String title, String content, String writer) {
     public DiaryEntity(Long id, String writer, String title, String singer,
-                       String imgSrc, String content) {
+                       String imgSrc, int mood, String content) {
         this.id = id;
         this.writer = writer;
         this.title = title;
         this.singer = singer;
         this.imgSrc = imgSrc;
+        this.mood = mood;
         this.content = content;
     }
 
@@ -52,6 +56,7 @@ public class DiaryEntity extends TimeEntity {
                 ", title='" + title + '\'' +
                 ", singer='" + singer + '\'' +
                 ", imgSrc='" + imgSrc + '\'' +
+                ", mood='" + mood + '\'' +
                 ", content='" + content + '\'' +
                 '}';
     }

@@ -15,6 +15,7 @@ public class DiaryDto {
     private String title;
     private String singer;
     private String imgSrc;
+    private int mood; // 1: 기쁨 2: 편안 3: 우울 4: 화남
     private String content;
     private LocalDateTime createdDate;
 //    private LocalDateTime modifiedDate;
@@ -22,12 +23,13 @@ public class DiaryDto {
     @Builder
 //    public DiaryDto(Long id, String title, String content, String writer, LocalDateTime createdDate, LocalDateTime modifiedDate) {
     public DiaryDto(Long id, String writer, String title, String singer,
-                    String imgSrc, String content, LocalDateTime createdDate) {
+                    String imgSrc, int mood, String content, LocalDateTime createdDate) {
         this.id = id;
         this.writer = writer;
         this.title = title;
         this.singer = singer;
         this.imgSrc = imgSrc;
+        this.mood = mood;
         this.content = content;
         this.createdDate = createdDate;
 //        this.modifiedDate = modifiedDate;
@@ -40,6 +42,7 @@ public class DiaryDto {
                 .title(title)
                 .singer(singer)
                 .imgSrc(imgSrc)
+                .mood(mood)
                 .content(content)
                 .build();
         return diaryEntity;
