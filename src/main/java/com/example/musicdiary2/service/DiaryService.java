@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -65,9 +65,10 @@ public class DiaryService {
         return diaryDtoList;
     }
 
+    /*
     @Transactional
-    public DiaryDto getPostByDate(LocalDateTime createdDate, LocalDateTime createdDate1) {
-        DiaryEntity diaryEntity = diaryRepository.findByCreatedDate(createdDate, createdDate1);
+    public DiaryDto getPostByDate(String writer, LocalDateTime createdDate, LocalDateTime createdDate1) {
+        DiaryEntity diaryEntity = diaryRepository.findByCreatedDate(writer, createdDate, createdDate1);
 
         DiaryDto diaryDto = DiaryDto.builder()
                 .id(diaryEntity.getId())
@@ -81,6 +82,30 @@ public class DiaryService {
                 .build();
 
         return diaryDto;
+    }
+    */
+
+    @Transactional
+    public List<DiaryDto> getPostByDate(String writer, LocalDate startDate, LocalDate endDate) {
+        List<DiaryEntity> diaryEntities = diaryRepository.findByDate(writer, startDate, endDate);
+        List<DiaryDto> diaryDtoList = new ArrayList<>();
+
+        for (DiaryEntity diaryEntity : diaryEntities) {
+            DiaryDto diaryDto = DiaryDto.builder()
+                    .id(diaryEntity.getId())
+                    .writer(diaryEntity.getWriter())
+                    .title(diaryEntity.getTitle())
+                    .singer(diaryEntity.getSinger())
+                    .imgSrc(diaryEntity.getImgSrc())
+                    .mood(diaryEntity.getMood())
+                    .content(diaryEntity.getContent())
+                    .createdDate(diaryEntity.getCreatedDate())
+                    .build();
+
+            diaryDtoList.add(diaryDto);
+        }
+
+        return diaryDtoList;
     }
 
     @Transactional

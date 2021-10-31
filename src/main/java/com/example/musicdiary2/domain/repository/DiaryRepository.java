@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface DiaryRepository extends JpaRepository<DiaryEntity, Long> {
@@ -18,10 +18,17 @@ public interface DiaryRepository extends JpaRepository<DiaryEntity, Long> {
 
     List<DiaryEntity> findByTitleContaining(String keyword);
 
-    @Query("select d from Diary d where d.created_date between :createdDate and :createdDate1")
-    DiaryEntity findByCreatedDate(@Param("createdDate") LocalDateTime createdDate,
-                                  @Param("createdDate1")LocalDateTime createdDate1);
+    @Query("select d from diary d where d.writer = :writer and d.createdDate between :createdDate and :createdDate1")
+    DiaryEntity findByCreatedDate(@Param("writer") String writer,
+                                  @Param("createdDate") LocalDate createdDate,
+                                  @Param("createdDate1") LocalDate createdDate1);
 
-    @Query("select d from Diary d where d.title = :title")
+    @Query("select d from diary d where d.title = :title")
     DiaryEntity findByTitle1(@Param("title") String title);
+
+    @Query("select d from diary d where d.writer = :writer " +
+            "and d.createdDate between :endDate and :startDate order by d.id")
+    List<DiaryEntity> findByDate(@Param("writer") String writer,
+                           @Param("startDate") LocalDate startDate,
+                           @Param("endDate") LocalDate endDate);
 }

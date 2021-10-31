@@ -1,12 +1,11 @@
 package com.example.musicdiary2.domain.repository;
 
 import com.example.musicdiary2.domain.entity.DiaryEntity;
-import com.example.musicdiary2.dto.DiaryDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -66,12 +65,15 @@ class DiaryRepositoryTest {
 
     @Test
     void getPostTest() {
-        LocalDateTime createdDate = LocalDateTime.of(2021, 10, 1, 00, 00);
-        LocalDateTime createdDate1 = LocalDateTime.of(2021, 10, 2, 00, 00);
+        String writer = "aaa@example.com";
+        LocalDate createdDate = LocalDate.of(2021, 10, 1);
+        LocalDate createdDate1 = LocalDate.of(2021, 11, 2);
 
-//        diaryRepository.findAll().forEach(System.out::println);
-//        System.out.println(diaryRepository.findByCreatedDate(createdDate, createdDate1));
-        System.out.println(diaryRepository.findByTitle1("title1"));
+
+        LocalDate today = LocalDate.now();
+        LocalDate minus100Day = today.minusDays(100);
+
+        System.out.println(diaryRepository.findByDate(writer, today, minus100Day));
     }
 
 }

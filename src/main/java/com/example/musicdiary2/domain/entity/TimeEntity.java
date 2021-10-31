@@ -9,7 +9,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter
 @MappedSuperclass
@@ -17,8 +17,8 @@ import java.time.LocalDateTime;
 public abstract class TimeEntity {
 
     @CreatedDate
-    @Column(columnDefinition = "datetime default now()", updatable = false)
-    private LocalDateTime createdDate;
+    @Column(columnDefinition = "date default now()", updatable = false)
+    private LocalDate createdDate;
 
 //    @LastModifiedDate
 //    @Column(columnDefinition = "datetime default now()")

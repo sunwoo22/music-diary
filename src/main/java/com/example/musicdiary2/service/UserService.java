@@ -1,10 +1,8 @@
 package com.example.musicdiary2.service;
 
 import com.example.musicdiary2.domain.Role;
-import com.example.musicdiary2.domain.entity.DiaryEntity;
 import com.example.musicdiary2.domain.entity.UserEntity;
 import com.example.musicdiary2.domain.repository.UserRepository;
-import com.example.musicdiary2.dto.DiaryDto;
 import com.example.musicdiary2.dto.UserDto;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

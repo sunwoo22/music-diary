@@ -3,7 +3,8 @@ package com.example.musicdiary2.dto;
 import com.example.musicdiary2.domain.entity.DiaryEntity;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 
 @Getter
 @Setter
@@ -17,12 +18,12 @@ public class DiaryDto {
     private String imgSrc;
     private int mood; // 1: 기쁨 2: 편안 3: 우울 4: 화남
     private String content;
-    private LocalDateTime createdDate;
+    private LocalDate createdDate;
 //    private LocalDateTime modifiedDate;
 
     @Builder
     public DiaryDto(Long id, String writer, String title, String singer,
-                    String imgSrc, int mood, String content, LocalDateTime createdDate) {
+                    String imgSrc, int mood, String content, LocalDate createdDate) {
         this.id = id;
         this.writer = writer;
         this.title = title;

@@ -3,7 +3,8 @@ package com.example.musicdiary2.dto;
 import com.example.musicdiary2.domain.entity.UserEntity;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 
 @Getter
 @Setter
@@ -13,8 +14,8 @@ public class UserDto {
     private Long id;
     private String email;
     private String password;
-    private LocalDateTime createdDate;
-    private LocalDateTime modifiedDate;
+    private LocalDate createdDate;
+    private LocalDate modifiedDate;
 
     public UserEntity toEntity(){
         return UserEntity.builder()
