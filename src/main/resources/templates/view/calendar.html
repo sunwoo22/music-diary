@@ -4,35 +4,53 @@
     <meta charset="UTF-8">
     <title>Title</title>
 
-</head>
-<body>
-<div id="moodRect" th:each="dateList : ${dateList}">
-            <span th:text="${dateList.day}"></span></td>
-            <svg width="11" height="11"><rect width="11" height="11" th:fill="${dateList.fill}" /></svg>
-    <a th:href="@{'/diary/' + ${dateList.diaryDto.id}}">link</a>
-            <br>
-</div>
+    <style>
 
-<script>
-    window.onload = function() {
-        var moodRect = document.getElementById("moodRect");
-        for (var c=1; c<5; c++) {
-            var rectCnt = moodRect.getElementsByClassName(String(c));
-            for (var i=0; i<rectCnt.length; i++) {
-                var rect = rectCnt[i];
-                if (c == 1) {
-                    rect.style.fill = "#FAED7D";
-                } else if (c == 2) {
-                    rect.style.fill = "#CEF279";
-                } else if (c == 3) {
-                    rect.style.fill = "#B2CCFF";
-                } else if (c == 4) {
-                    rect.style.fill = "#FFC19E";
-                }
-            }
+        rect {
+            width: 16px;
+            height: 16px;
+            rx: 4px;
+            ry: 4px;
         }
-    }
-</script>
+
+        text {
+            font-size: 14px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<svg width="350px" height="140px">
+
+    <g transform="translate(0, 14)">
+        <text dy="0" style="display: none;">Sun</text>
+        <text dy="20">Mon</text>
+        <text dy="40" style="display: none;">Tue</text>
+        <text dy="60">Wed</text>
+        <text dy="80" style="display: none;">Thu</text>
+        <text dy="100">Fri</text>
+        <text dy="120" style="display: none;">Sat</text>
+    </g>
+
+    <g th:each="dateList : ${dateList}">
+        <a th:if="${dateList.diaryDto.id != null}"
+           th:href="@{'/diary/' + ${dateList.diaryDto.id}}">
+            <rect th:x="${dateList.x}" th:y="${dateList.y}"
+                  th:fill="${dateList.fill}"
+                  th:data-date="${dateList.diaryDto.createdDate}"></rect>
+        </a>
+        <a th:unless="${dateList.diaryDto.id != null}">
+            <rect th:x="${dateList.x}" th:y="${dateList.y}"
+                  th:fill="${dateList.fill}"
+                  th:data-date="${dateList.diaryDto.createdDate}"></rect>
+        </a>
+    </g>
+
+</svg>
 
 </body>
 </html>
+

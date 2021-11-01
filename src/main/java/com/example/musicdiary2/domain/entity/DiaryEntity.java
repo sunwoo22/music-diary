@@ -36,10 +36,8 @@ public class DiaryEntity extends TimeEntity {
     private String content;
 
     @Builder
-//    public DiaryEntity(Long id, String title, String content, String writer) {
     public DiaryEntity(Long id, String writer, String title, String singer,
                        String imgSrc, int mood, String content) {
-//        super(createdDate);
         this.id = id;
         this.writer = writer;
         this.title = title;

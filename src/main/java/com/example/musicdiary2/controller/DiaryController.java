@@ -19,38 +19,6 @@ public class DiaryController {
 
     private DiaryService diaryService;
 
-    /*
-    @GetMapping("/calendar")
-    public String calendar(Model model,
-               @RequestParam String y, @RequestParam String m, @RequestParam String d) {
-
-        String username = "aaa@example.com";
-
-        for (int i=0; i<12; i++) {
-            for (int j = 0; j < 7; j++) {
-                String dtoName = "diaryDto" + Integer.toString(j+7*i);
-                String dateName = "thisDate" + Integer.toString(j+7*i);
-                LocalDateTime date =
-                        LocalDateTime.of(Integer.parseInt(y), Integer.parseInt(m), Integer.parseInt(d), 00, 00);
-                LocalDateTime date1 =
-                        LocalDateTime.of(Integer.parseInt(y), Integer.parseInt(m), Integer.parseInt(d)+1, 00, 00);
-                DiaryDto diaryDto = diaryService.getPostByDate(username, date, date1);
-                model.addAttribute(dtoName, diaryDto);
-            }
-        }
-        return "view/calendar.html";
-    }
-
-     */
-
-//    @GetMapping("/")
-//    public String list(Model model) {
-//        List<DiaryDto> diaryList = diaryService.getDiaryList();
-//        model.addAttribute("diaryList", diaryList);
-//        return "diary/list.html";
-//    }
-
-
     @GetMapping("/diary/music")
     public String music() {
         return "diary/musicSearch.html";
@@ -81,7 +49,6 @@ public class DiaryController {
 
         return "diary/write";
     }
-
 
     @GetMapping("/diary/write")
     public String write(Principal principal, Model model) {

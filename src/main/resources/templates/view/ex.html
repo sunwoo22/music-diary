@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        rect {
+            width: 11px;
+            height: 11px;
+            rx: 2px;
+            ry: 2px;
+            fill: #EAEAEA;
+        }
+        text {
+            font-size: 11px;
+        }
+
+    </style>
+</head>
+<body>
+
+<svg width="400px" height="200px">
+    <g id="moodRect">
+        <g transform="translate(30, 0)">
+            <rect y="0" data-date="" data-mood=""></rect>
+            <rect y="15"></rect>
+            <rect y="30"></rect>
+            <rect y="45"></rect>
+            <rect y="60"></rect>
+            <rect y="75"></rect>
+            <rect y="90"></rect>
+        </g>
+        <g transform="translate(45, 0)">
+            <rect class="1" y="0"></rect>
+            <rect y="15"></rect>
+            <rect y="30"></rect>
+            <rect y="45"></rect>
+            <rect y="60"></rect>
+            <rect y="75"></rect>
+            <rect y="90"></rect>
+        </g>
+        <g transform="translate(60, 0)">
+            <rect y="0"></rect>
+            <rect y="15"></rect>
+            <rect y="30"></rect>
+            <rect class="2" y="45"></rect>
+            <rect y="60"></rect>
+            <rect y="75"></rect>
+            <rect y="90"></rect>
+        </g>
+        <g transform="translate(75, 0)">
+            <rect y="0"></rect>
+            <rect y="15"></rect>
+            <rect y="30"></rect>
+            <rect y="45"></rect>
+            <rect y="60"></rect>
+            <rect y="75"></rect>
+            <rect y="90"></rect>
+        </g>
+        <g transform="translate(90, 0)">
+            <rect y="0"></rect>
+            <rect y="15"></rect>
+            <rect y="30"></rect>
+            <rect class="3" y="45"></rect>
+            <rect y="60"></rect>
+            <rect y="75"></rect>
+            <rect y="90"></rect>
+        </g>
+        <g transform="translate(105 ,0)">
+            <rect y="0"></rect>
+            <rect y="15"></rect>
+            <rect y="30"></rect>
+            <rect y="45"></rect>
+            <rect y="60"></rect>
+            <rect y="75"></rect>
+            <rect class="4" y="90"></rect>
+        </g>
+        <g transform="translate(120 ,0)">
+            <rect y="0"></rect>
+            <rect y="15"></rect>
+            <rect y="30"></rect>
+            <rect y="45"></rect>
+            <rect y="60"></rect>
+            <rect y="75"></rect>
+            <rect y="90"></rect>
+        </g>
+        <g transform="translate(135 ,0)">
+            <rect y="0"></rect>
+            <rect y="15"></rect>
+            <rect y="30"></rect>
+            <rect y="45"></rect>
+            <rect y="60"></rect>
+            <rect y="75"></rect>
+            <rect y="90"></rect>
+        </g>
+        <g transform="translate(150 ,0)">
+            <rect y="0"></rect>
+            <rect y="15"></rect>
+            <rect y="30"></rect>
+            <rect y="45"></rect>
+            <rect y="60"></rect>
+            <rect y="75"></rect>
+            <rect y="90"></rect>
+        </g>
+        <g transform="translate(165 ,0)">
+            <rect y="0"></rect>
+            <rect y="15"></rect>
+            <rect y="30"></rect>
+            <rect y="45"></rect>
+            <rect y="60"></rect>
+            <rect y="75"></rect>
+            <rect y="90"></rect>
+        </g>
+        <g transform="translate(180 ,0)">
+            <rect y="0"></rect>
+            <rect y="15"></rect>
+            <rect y="30"></rect>
+            <rect y="45"></rect>
+            <rect y="60"></rect>
+            <rect y="75"></rect>
+            <rect y="90"></rect>
+        </g>
+        <g transform="translate(195 ,0)">
+            <rect y="0"></rect>
+            <rect y="15"></rect>
+            <rect y="30"></rect>
+            <rect y="45"></rect>
+            <rect y="60"></rect>
+            <rect y="75"></rect>
+            <rect y="90"></rect>
+        </g>
+        <g transform="translate(210 ,0)">
+            <rect y="0"></rect>
+            <rect y="15"></rect>
+            <rect y="30"></rect>
+            <rect y="45"></rect>
+            <rect y="60"></rect>
+            <rect y="75"></rect>
+            <rect y="90"></rect>
+        </g>
+        <g transform="translate(0, 11)">
+            <text text-anchor="start" dy="0" style="display: none;">Sun</text>
+            <text text-anchor="start" dy="15">Mon</text>
+            <text text-anchor="start" dy="30" style="display: none;">Tue</text>
+            <text text-anchor="start" dy="45">Wed</text>
+            <text text-anchor="start" dy="60" style="display: none;">Thu</text>
+            <text text-anchor="start" dy="75">Fri</text>
+            <text text-anchor="start" dy="90" style="display: none;">Sat</text>
+        </g>
+
+
+
+
+
+    </g>
+</svg>
+
+
+<script>
+
+    window.onload = function() {
+        var moodRect = document.getElementById("moodRect");
+        for (var c=1; c<5; c++) {
+            var rectCnt = moodRect.getElementsByClassName(String(c));
+            for (var i=0; i<rectCnt.length; i++) {
+                var rect = rectCnt[i];
+                if (c == 1) {
+                    rect.style.fill = "#FAED7D";
+                } else if (c==2) {
+                    rect.style.fill = "#CEF279";
+                } else if (c==3) {
+                    rect.style.fill = "#B2CCFF";
+                } else if (c==4) {
+                    rect.style.fill = "#FFC19E";
+                }
+                
+            }
+        }
+    }
+
+    function moodColor(moodNum) {
+        if (moodNum == 1) {
+            return "fill: #FAED7D";
+        }
+        else if (moodNum == 2) {
+            return "fill: #CEF279"
+        }
+        else if (moodNum == 3) {
+            return "fill: #B2CCFF"
+        }
+        else if (moodNum == 4) {
+            return "fill: #FFC19E"
+        }
+    }
+
+</script>
+
+
+</body>
+</html>

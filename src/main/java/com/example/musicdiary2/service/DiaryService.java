@@ -65,26 +65,6 @@ public class DiaryService {
         return diaryDtoList;
     }
 
-    /*
-    @Transactional
-    public DiaryDto getPostByDate(String writer, LocalDateTime createdDate, LocalDateTime createdDate1) {
-        DiaryEntity diaryEntity = diaryRepository.findByCreatedDate(writer, createdDate, createdDate1);
-
-        DiaryDto diaryDto = DiaryDto.builder()
-                .id(diaryEntity.getId())
-                .writer(diaryEntity.getWriter())
-                .title(diaryEntity.getTitle())
-                .singer(diaryEntity.getSinger())
-                .imgSrc(diaryEntity.getImgSrc())
-                .mood(diaryEntity.getMood())
-                .content(diaryEntity.getContent())
-                .createdDate(diaryEntity.getCreatedDate())
-                .build();
-
-        return diaryDto;
-    }
-    */
-
     @Transactional
     public List<DiaryDto> getPostByDate(String writer, LocalDate startDate, LocalDate endDate) {
         List<DiaryEntity> diaryEntities = diaryRepository.findByDate(writer, startDate, endDate);

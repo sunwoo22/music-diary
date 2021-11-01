@@ -9,12 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
+
+import static com.example.musicdiary2.calendar.Calendar.getDateList;
 
 @Controller
 @AllArgsConstructor
@@ -50,6 +50,11 @@ public class UserController {
         String username = principal.getName();
         List<DiaryDto> myDiaryList = diaryService.getMyDiaryList(username);
         model.addAttribute("myDiaryList", myDiaryList);
+
+        LocalDate today = LocalDate.now();
+        LocalDate minus100Day = today.minusDays(100);
+        List<DiaryDto> calDiaryList = diaryService.getPostByDate(username, today, minus100Day);
+        model.addAttribute("dateList", getDateList(calDiaryList));
 
         return "view/mypage";
     }
@@ -90,8 +95,6 @@ public class UserController {
     public String dispDenied() {
         return "signuplogin/denied";
     }
-
-
 
     // 어드민 페이지
     @GetMapping("/admin")

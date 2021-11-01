@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        rect {
+            width: 11px;
+            height: 11px;
+            rx: 2px;
+            ry: 2px;
+            fill: #EAEAEA;
+        }
+        text {
+            font-size: 11px;
+        }
+
+    </style>
+</head>
+<body>
+
+
+<div th:each="diary : ${myDiaryList}" width="400px" height="200px">
+    <g id="moodRect" class="dates">
+    </g>
+    <g transform="translate(0, 11)">
+        <text text-anchor="start" dy="0" style="display: none;">Sun</text>
+        <text text-anchor="start" dy="15">Mon</text>
+        <text text-anchor="start" dy="30" style="display: none;">Tue</text>
+        <text text-anchor="start" dy="45">Wed</text>
+        <text text-anchor="start" dy="60" style="display: none;">Thu</text>
+        <text text-anchor="start" dy="75">Fri</text>
+        <text text-anchor="start" dy="90" style="display: none;">Sat</text>
+    </g>
+</div>
+
+
+
+<script>
+
+    function dayLoc(day) {
+        if (day == 0) { return 0; }
+        else if (day == 1) { return 15; }
+        else if (day == 2) { return 30; }
+        else if (day == 3) { return 45; }
+        else if (day == 4) { return 60; }
+        else if (day == 5) { return 75; }
+        else if (day == 6) { return 90; }
+    }
+
+    function toDateString(date) {
+        y = date.getFullYear();
+        m = date.getMonth();
+        d = date.getDate();
+        return [y, m, d].join("-");
+    }
+
+    const date = new Date(2021, 9, 28).getDate();
+    const dates = []
+
+    dates.push("<g transform='translate(" + 200 + ",0)'>");
+
+    for (var i=0; i<12; i++) {
+        x = 200 - 15*(i+1);
+        for (var j=0; j<7; j++) {
+            num = j+7*i;
+            thisDate = new Date(new Date(2021, 9, 28).setDate(date-num));
+            y = dayLoc(thisDate.getDay());
+            dateChk = thisDate.toLocalDateString();
+
+            tag = "{% if ${#temporals.format(diary.createdDate, 'yyyy. MM. dd.')}.equals(" + dateChk + ") %}" +
+                "<a th:href='@{'/diary/' + ${diary.id}}'>" +
+                "<rect y='" + y + "' class='${diary.mood}' /></a>" +
+                "{% else %}" +
+                "<rect y='" + y + "' class='0' />" +
+                "{% endif %}"
+
+            dates.push(tag);
+
+            if (y == 0) {
+                dates.push("</g>")
+                dates.push("<g transform='translate("+String(x)+",0)'>");
+
+            }
+        }
+    }
+    dates.push("</g>")
+
+
+
+    console.log(dates);
+    document.querySelector('.dates').innerHTML = dates.join('');
+
+
+    window.onload = function() {
+
+        var moodRect = document.getElementById("moodRect");
+        for (var c=1; c<5; c++) {
+            var rectCnt = moodRect.getElementsByClassName(String(c));
+            for (var i=0; i<rectCnt.length; i++) {
+                var rect = rectCnt[i];
+                if (c == 0) {
+                    rect.style.fill = "#EAEAEA";
+                } else if (c == 1) {
+                    rect.style.fill = "#FAED7D";
+                } else if (c == 2) {
+                    rect.style.fill = "#CEF279";
+                } else if (c == 3) {
+                    rect.style.fill = "#B2CCFF";
+                } else if (c == 4) {
+                    rect.style.fill = "#FFC19E";
+                }
+            }
+        }
+    }
+
+
+</script>
+
+
+</body>
+</html>

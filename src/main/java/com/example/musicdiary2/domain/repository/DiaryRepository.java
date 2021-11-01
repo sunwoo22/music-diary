@@ -18,14 +18,6 @@ public interface DiaryRepository extends JpaRepository<DiaryEntity, Long> {
 
     List<DiaryEntity> findByTitleContaining(String keyword);
 
-    @Query("select d from diary d where d.writer = :writer and d.createdDate between :createdDate and :createdDate1")
-    DiaryEntity findByCreatedDate(@Param("writer") String writer,
-                                  @Param("createdDate") LocalDate createdDate,
-                                  @Param("createdDate1") LocalDate createdDate1);
-
-    @Query("select d from diary d where d.title = :title")
-    DiaryEntity findByTitle1(@Param("title") String title);
-
     @Query("select d from diary d where d.writer = :writer " +
             "and d.createdDate between :endDate and :startDate order by d.id")
     List<DiaryEntity> findByDate(@Param("writer") String writer,

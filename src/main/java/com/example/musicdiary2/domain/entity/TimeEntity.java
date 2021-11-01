@@ -24,7 +24,4 @@ public abstract class TimeEntity {
 //    @Column(columnDefinition = "datetime default now()")
 //    private LocalDate modifiedDate;
 
-//    public TimeEntity(LocalDateTime createdDate) {
-//        this.createdDate = createdDate;
-//    }
 }
