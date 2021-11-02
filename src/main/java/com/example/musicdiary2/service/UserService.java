@@ -50,8 +50,8 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public UserDto getPost(Long id) {
-        Optional<UserEntity> userEntityWrapper = userRepository.findById(id);
+    public Long getUserId(String username) {
+        Optional<UserEntity> userEntityWrapper = userRepository.findByEmail(username);
         UserEntity userEntity = userEntityWrapper.get();
 
         UserDto userDto = UserDto.builder()
@@ -60,6 +60,6 @@ public class UserService implements UserDetailsService {
                 .password(userEntity.getPassword())
                 .build();
 
-        return userDto;
+        return userDto.getId();
     }
 }

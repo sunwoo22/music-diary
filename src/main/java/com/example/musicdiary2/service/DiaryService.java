@@ -22,6 +22,7 @@ public class DiaryService {
     private DiaryRepository diaryRepository;
 
     // 조회수 증가하기
+    @Transactional
     public void increaseViews(Long id) {
         diaryRepository.increaseViews(id);
     }

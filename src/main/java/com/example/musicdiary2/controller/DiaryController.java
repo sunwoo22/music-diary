@@ -2,6 +2,8 @@ package com.example.musicdiary2.controller;
 
 import com.example.musicdiary2.dto.DiaryDto;
 import com.example.musicdiary2.service.DiaryService;
+import com.example.musicdiary2.service.LikeService;
+import com.example.musicdiary2.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,8 @@ import java.util.List;
 public class DiaryController {
 
     private DiaryService diaryService;
+    private UserService userService;
+    private LikeService likeService;
 
     @GetMapping("/diary/music")
     public String music() {
@@ -69,12 +73,44 @@ public class DiaryController {
         diaryService.increaseViews(id);
         DiaryDto diaryDto = diaryService.getPost(id);
         model.addAttribute("diaryDto", diaryDto);
-        String username = "";
+
+        String username = null;
         if (principal != null) {
             username = principal.getName();
+            Long user_id = userService.getUserId(username);
+            boolean checkLike = likeService.checkLike(id, user_id);
+            model.addAttribute("checkLike", checkLike);
         }
         model.addAttribute("username", username);
+
+        int likeNum = likeService.countLikeNum(id);
+        model.addAttribute("likeNum", likeNum);
+
         return "diary/detail.html";
+    }
+
+    @PostMapping("/diary/like")
+    public String pushLike(@RequestParam("diary_id") Long diary_id,
+                           @RequestParam("username") String username,
+                           @RequestParam("checkLike") boolean checkLike) {
+        Long user_id = userService.getUserId(username);
+
+        if (checkLike) {
+            likeService.cancelLike(diary_id, user_id);
+        } else {
+            likeService.pushLike(diary_id, user_id);
+        }
+
+        return "redirect:/diary/" + diary_id;
+    }
+
+    @PostMapping("/diary/unlike")
+    public String cancelLike(@RequestParam("diary_id") Long diary_id,
+                           @RequestParam("username") String username) {
+        Long user_id = userService.getUserId(username);
+        likeService.cancelLike(diary_id, user_id);
+
+        return "redirect:/diary/" + diary_id;
     }
 
 //    @GetMapping("/diary/edit/{id}")

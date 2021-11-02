@@ -11,11 +11,14 @@
     <!-- HEADER -->
     <div th:insert="common/header.html" id="header"></div>
 
+    <!-- 좋아요 -->
+    <div th:insert="diary/like.html" id="like"></div>
+
     <!--내용-->
         <img th:src="${diaryDto.imgSrc}" width="300px" height="300px">
         <h2 th:text="${diaryDto.title}"></h2>
         <h3 th:text="${diaryDto.singer}"></h3>
-        <p th:text="${diaryDto.views}"></p>
+        <p th:text="${diaryDto.views}+회"></p>
         <p th:inline="text">[[${#temporals.format(diaryDto.createdDate, 'yyyy-MM-dd')}]]</p>
 <!--        <p th:text="${diaryDto.mood}"></p>-->
         <p th:text="${diaryDto.content}" th:class="color + ${diaryDto.mood}"></p>

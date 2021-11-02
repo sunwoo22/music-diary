@@ -1,0 +1,29 @@
+<!--[[${username}]]-->
+
+<!-- 좋아요 버튼 -->
+<span th:if="${username} == null">
+    <input type="button" th:value="좋아요하려면로그인" onclick="login()"> <br>
+</span>
+
+<span th:unless="${username} == null">
+    <form action="/diary/like" method="post">
+        <input th:if="${checkLike} == true" type="submit" th:value="안좋아요">
+        <input th:unless="${checkLike} == true" type="submit" th:value="좋아요">
+
+        <input type="hidden" name="checkLike" th:value="${checkLike}">
+        <input type="hidden" name="diary_id" th:value="${diaryDto.id}">
+        <input type="hidden" name="username" th:value="${username}">
+    </form>
+</span>
+
+<!-- 좋아요 개수 -->
+[[${likeNum}]]개
+<br>
+
+<script>
+
+    function login() {
+        alert("로그인 후 이용 가능합니다.");
+    }
+
+</script>
