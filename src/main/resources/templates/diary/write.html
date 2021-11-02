@@ -3,15 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/diary.css}">
 </head>
 <body>
 <form action="/diary/save" method="post">
 
-    <a th:href="@{/diary/music}">음악 검색</a> <br>
+    <input type="checkbox" name="unopen" value="1">비공개 <br>
+
 <!--    required="required"-->
     제목 : <input type="text" name="title" th:value="${title}" readonly="readonly"> <br>
     가수 : <input type="text" name="singer" th:value="${singer}" readonly="readonly"> <br>
-    앨범아트 : <br> <img th:src="${imgSrc}" width="200px" height="200px"> <br>
+    앨범아트 : <br>
+            <img th:if="${imgSrc != null}" th:src="${imgSrc}">
+            <img th:unless="${imgSrc != null}" th:src="@{/static/image/default.png}">
+            <br>
+
+    <a th:href="@{/diary/music}">음악 검색</a> <br>
+
     기분 :
         <label><input type="radio" name="mood" value="1">기쁨</label>
         <label><input type="radio" name="mood" value="2">편안</label>

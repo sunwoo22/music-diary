@@ -2,57 +2,54 @@
 <html lang="en" xmlns:sec="" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>내정보</title>
+    <title>mypage</title>
 </head>
 <body>
-<h1>내정보 확인 페이지입니다.</h1>
-<hr>
 
-<span sec:authentication="name"></span>님 환영합니다~
-<br>
+    <!-- HEADER -->
+    <div th:insert="common/header.html" id="header"></div>
 
-<!--메인화면 버튼-->
-<a th:href="@{/main}">메인화면</a>
-<!--글쓰기 버튼-->
-<a th:href="@{/diary/write}">글쓰기</a>
+    <span sec:authentication="name"></span>님 환영합니다~
 
-<!-- DIARY-LIST -->
-<div th:insert="view/calendar.html" id="header"></div>
+    <!--글쓰기 버튼-->
+    <a th:href="@{/diary/write}">글쓰기</a>
 
-<table>
-    <thead>
-    <tr>
-        <!--        <th class="one wide">번호</th>-->
-        <th class="ten wide">제목</th>
-        <th class="ten wide">가수</th>
-        <th class="two wide">앨범아트</th>
-        <th class="three wide">작성일</th>
-    </tr>
-    </thead>
+    <!-- DIARY-LIST -->
+    <div th:insert="diary/calendar.html" id="calendar"></div>
 
-    <tbody>
-    <!-- CONTENTS !-->
-    <tr th:each="diary : ${myDiaryList}">
-        <td>
-            <a th:href="@{'/diary/' + ${diary.id}}">
-                <span th:text="${diary.title}"></span>
-            </a>
-        </td>
-        <td>
-            <span th:text="${diary.singer}"></span>
-        </td>
-        <td>
-            <img th:src="${diary.imgSrc}" width="200px" height="200px">
-        </td>
-        <td>
-            <span th:text="${#temporals.format(diary.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
-        </td>
-    </tr>
-    </tbody>
-</table>
+    <table>
+        <thead>
+        <tr>
+            <!--        <th class="one wide">번호</th>-->
+            <th class="ten wide">제목/가수</th>
+            <th class="two wide">앨범아트</th>
+            <th class="three wide">작성일</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <!-- CONTENTS !-->
+        <tr th:each="diary : ${myDiaryList}">
+            <td>
+                <a th:href="@{'/diary/' + ${diary.id}}">
+                    <span th:text="${diary.title}"></span>
+                </a>
+                <br>
+                <span th:text="'- ' + ${diary.singer}"></span>
+            </td>
+            <td>
+                <img th:src="${diary.imgSrc}" width="200px" height="200px">
+            </td>
+            <td>
+                <span th:text="${#temporals.format(diary.createdDate, 'yyyy-MM-dd')}"></span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
 
-
+    <!-- FOOTER -->
+    <div th:insert="common/footer.html" id="footer"></div>
 
 
 </body>

@@ -76,4 +76,9 @@ class DiaryRepositoryTest {
         System.out.println(diaryRepository.findByDate(writer, today, minus100Day));
     }
 
+    @Test
+    void findPostOpenTest() {
+        diaryRepository.findOpenPost().forEach(System.out::println);
+    }
+
 }

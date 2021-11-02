@@ -1,9 +1,7 @@
 package com.example.musicdiary2.calendar;
 
-import com.example.musicdiary2.domain.DateData;
+import com.example.musicdiary2.dto.CalendarDto;
 import com.example.musicdiary2.dto.DiaryDto;
-import com.example.musicdiary2.service.DiaryService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,12 +9,12 @@ import java.util.List;
 
 public class Calendar {
 
-    public static List<DateData> getDateList(List<DiaryDto> calDiaryList) {
+    public static List<CalendarDto> getDateList(List<DiaryDto> calDiaryList) {
 
         LocalDate today = LocalDate.now();
         LocalDate minus100Day = today.minusDays(100);
 
-        List<DateData> dateList = new ArrayList<>();
+        List<CalendarDto> dateList = new ArrayList<>();
 
         // 달력 데이터에 넣기 위한 배열 추가
         DiaryDto[] diaryDtos = new DiaryDto[101];
@@ -38,11 +36,11 @@ public class Calendar {
             if (day%7 == 0) {
                 x += 20;
             }
-            DateData calendarDate;
+            CalendarDto calendarDate;
             if (x == 20) {
-                calendarDate = new DateData(day, diaryDtos[i], "#FFFFFF", x, y);
+                calendarDate = new CalendarDto(day, diaryDtos[i], "#FFFFFF", x, y);
             } else {
-                calendarDate = new DateData(day, diaryDtos[i], x, y);
+                calendarDate = new CalendarDto(day, diaryDtos[i], x, y);
             }
             dateList.add(calendarDate);
         }

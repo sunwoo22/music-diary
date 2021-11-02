@@ -1,36 +1,26 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
 
-    <link rel="stylesheet" th:href="@{/css/diary.css}">
-</head>
-<body>
-<!-- HEADER -->
-<!--<div th:insert="common/header.html" id="header"></div>-->
-
-<!--글쓰기 버튼-->
-<!--<a th:href="@{/post}">글쓰기</a>-->
+<!--    <link rel="stylesheet" th:href="@{/css/diary.css}">-->
+<!--</head>-->
+<!--<body>-->
 
 <!-- 검색 form -->
 <form action="/diary/search" method="GET">
-    <div>
         <input name="keyword" type="text" placeholder="검색어를 입력해주세요">
-    </div>
-
-    <button>검색하기</button>
+        <button>검색하기</button>
 </form>
 
 <table>
     <thead>
     <tr>
-<!--        <th class="one wide">번호</th>-->
-        <th>제목</th>
-        <th>가수</th>
+        <th>제목/가수</th>
         <th>앨범아트</th>
         <th>작성자</th>
-<!--        <th class="three wide">작성일</th>-->
+        <th>조회수</th>
     </tr>
     </thead>
 
@@ -41,16 +31,17 @@
             <a th:href="@{'/diary/' + ${diary.id}}">
                 <span th:text="${diary.title}"></span>
             </a>
-        </td>
-        <td>
-            <span th:text="${diary.singer}"></span>
+            <br>
+            <span th:text="'- ' + ${diary.singer}"></span>
         </td>
         <td>
             <img th:src="${diary.imgSrc}" width="200px" height="200px">
-<!--            <span th:text="${diary.imgSrc}"></span>-->
         </td>
         <td>
             <span th:text="${diary.writer}"></span>
+        </td>
+        <td>
+            <span th:text="${diary.views}"></span>
         </td>
 <!--        <td>-->
 <!--            <span th:text="${#temporals.format(diary.createdDate, 'yyyy-MM-dd HH:mm')}"></span>-->
@@ -62,5 +53,5 @@
 <!-- FOOTER -->
 <!--<div th:insert="common/footer.html" id="footer"></div>-->
 
-</body>
-</html>
+<!--</body>-->
+<!--</html>-->

@@ -2,43 +2,65 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Diary</title>
+
+    <link rel="stylesheet" th:href="@{/css/diary.css}">
 </head>
 <body>
-<!--메인화면 버튼-->
-<a th:href="@{/main}">메인화면</a>
 
-<!--내용-->
-<img th:src="${diaryDto.imgSrc}" width="300px" height="300px">
-<h2 th:text="${diaryDto.title}"></h2>
-<h3 th:text="${diaryDto.singer}"></h3>
-<p th:inline="text">[[${#temporals.format(diaryDto.createdDate, 'yyyy-MM-dd HH:mm:ss')}]]</p>
-<p th:text="${diaryDto.mood}"></p>
-<p th:text="${diaryDto.content}"></p>
+    <!-- HEADER -->
+    <div th:insert="common/header.html" id="header"></div>
 
-<!-- 수정/삭제 -->
-<!--
-<div>
-    <a th:href="@{'/post/edit/' + ${diaryDto.id}}">
-        <button>수정</button>
-    </a>
+    <!--내용-->
+        <img th:src="${diaryDto.imgSrc}" width="300px" height="300px">
+        <h2 th:text="${diaryDto.title}"></h2>
+        <h3 th:text="${diaryDto.singer}"></h3>
+        <p th:text="${diaryDto.views}"></p>
+        <p th:inline="text">[[${#temporals.format(diaryDto.createdDate, 'yyyy-MM-dd')}]]</p>
+<!--        <p th:text="${diaryDto.mood}"></p>-->
+        <p th:text="${diaryDto.content}" th:class="color + ${diaryDto.mood}"></p>
 
-    <form id="delete-form" th:action="@{'/post/' + ${diaryDto.id}}" method="post">
-        <input type="hidden" name="_method" value="delete"/>
-        <button id="delete-btn">삭제</button>
+
+<!--    공개/비공개, 삭제 버튼-->
+    <span th:if="${diaryDto.writer} == ${username}">
+    <form id="update-form" th:action="@{'/diary/edit/' + ${diaryDto.id}}" method="post">
+        <input type="hidden" name="_method" value="put">
+        <input type="submit" th:if="${diaryDto.unopen} == 0" th:value="비공개">
+        <input type="submit" th:unless="${diaryDto.unopen} == 0" th:value="공개">
+        <input type="hidden" name="unopen" th:value="${diaryDto.unopen}">
     </form>
-</div>
--->
+    <form id="delete-form" th:action="@{'/diary/delete/' + ${diaryDto.id}}" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <input type="submit" value="삭제">
+    </form>
+    </span>
 
-<!-- 변수 셋팅 -->
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    var diaryDto = /*[[${diaryDto}]]*/ "";
-    /*]]>*/
-</script>
+    <!-- 수정/삭제 -->
+    <!--
+    <div>
+        <a th:href="@{'/post/edit/' + ${diaryDto.id}}">
+            <button>수정</button>
+        </a>
 
-<!-- script -->
-<script th:inline="javascript" th:src="@{/js/diary.js}"></script>
+        <form id="delete-form" th:action="@{'/post/' + ${diaryDto.id}}" method="post">
+            <input type="hidden" name="_method" value="delete"/>
+            <button id="delete-btn">삭제</button>
+        </form>
+    </div>
+    -->
+
+<!--    &lt;!&ndash; 변수 셋팅 &ndash;&gt;-->
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var diaryDto = /*[[${diaryDto}]]*/ "";
+        /*]]>*/
+    </script>
+
+    <!-- script -->
+    <script th:inline="javascript" th:src="@{/js/diary.js}"></script>
+
+    <!-- FOOTER -->
+    <div th:insert="common/footer.html" id="footer"></div>
 
 </body>
 </html>

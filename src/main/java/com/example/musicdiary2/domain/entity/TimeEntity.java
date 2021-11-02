@@ -1,6 +1,5 @@
 package com.example.musicdiary2.domain.entity;
 
-import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;

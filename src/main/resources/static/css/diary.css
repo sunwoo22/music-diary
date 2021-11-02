@@ -1,7 +1,25 @@
+img {
+    width: 200px;
+    height: 200px;
+}
+
 table {
     border-collapse: collapse;
 }
 
 table, th, td {
     border: 1px solid black;
+}
+
+.color1 {
+    background-color: #FAED7D;
+}
+.color2 {
+    background-color: #CEF279;
+}
+.color3 {
+    background-color: #B2CCFF;
+}
+.color4 {
+    background-color: #FFC19E;
 }

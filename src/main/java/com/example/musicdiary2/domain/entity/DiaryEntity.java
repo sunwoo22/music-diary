@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity(name = "diary")
-//@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor
 @Getter
 @Table(name = "diary")
@@ -35,9 +34,16 @@ public class DiaryEntity extends TimeEntity {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
+    @Column(length = 1, columnDefinition = "int default 0")
+    private int unopen; // 0: 공개 / 1: 비공개
+
+    @Column(length = 6, columnDefinition = "int default 0")
+    private int views; // 조회수
+
     @Builder
     public DiaryEntity(Long id, String writer, String title, String singer,
-                       String imgSrc, int mood, String content) {
+                       String imgSrc, int mood, String content,
+                       int unopen, int views) {
         this.id = id;
         this.writer = writer;
         this.title = title;
@@ -45,6 +51,8 @@ public class DiaryEntity extends TimeEntity {
         this.imgSrc = imgSrc;
         this.mood = mood;
         this.content = content;
+        this.unopen = unopen;
+        this.views = views;
     }
 
     @Override
@@ -55,8 +63,12 @@ public class DiaryEntity extends TimeEntity {
                 ", title='" + title + '\'' +
                 ", singer='" + singer + '\'' +
                 ", imgSrc='" + imgSrc + '\'' +
-                ", mood='" + mood + '\'' +
+                ", mood=" + mood +
                 ", content='" + content + '\'' +
+                ", open=" + unopen +
+                ", views=" + views +
                 '}';
     }
+
+
 }

@@ -64,29 +64,43 @@ public class DiaryController {
     }
 
     @GetMapping("/diary/{id}")
-    public String detail(@PathVariable("id") Long id, Model model) {
+    public String detail(@PathVariable("id") Long id,
+                         Principal principal, Model model) {
+        diaryService.increaseViews(id);
         DiaryDto diaryDto = diaryService.getPost(id);
         model.addAttribute("diaryDto", diaryDto);
+        String username = "";
+        if (principal != null) {
+            username = principal.getName();
+        }
+        model.addAttribute("username", username);
         return "diary/detail.html";
     }
 
-    @GetMapping("/diary/edit/{id}")
-    public String edit(@PathVariable("id") Long id, Model model) {
-        DiaryDto diaryDto = diaryService.getPost(id);
-        model.addAttribute("diaryDto", diaryDto);
-        return "diary/update.html";
-    }
+//    @GetMapping("/diary/edit/{id}")
+//    public String edit(@PathVariable("id") Long id, Model model) {
+//        DiaryDto diaryDto = diaryService.getPost(id);
+//        model.addAttribute("diaryDto", diaryDto);
+//        return "diary/update.html";
+//    }
+//
+//    @PutMapping("/diary/edit/{id}")
+//    public String update(DiaryDto diaryDto) throws IOException {
+//        diaryService.savePost(diaryDto);
+//        return "redirect:/";
+//    }
 
     @PutMapping("/diary/edit/{id}")
-    public String update(DiaryDto diaryDto) throws IOException {
-        diaryService.savePost(diaryDto);
-        return "redirect:/";
+    public String updateUnopen(@PathVariable("id") Long id,
+                               @RequestParam("unopen") int unopen) {
+        diaryService.updateUnopen(id, unopen);
+        return "redirect:/mypage";
     }
 
-    @DeleteMapping("/diary/{id}")
+    @DeleteMapping("/diary/delete/{id}")
     public String delete(@PathVariable("id") Long id) {
         diaryService.deletePost(id);
-        return "redirect:/";
+        return "redirect:/mypage";
     }
 
     @GetMapping("/diary/search")

@@ -18,7 +18,6 @@ import static com.example.musicdiary2.calendar.Calendar.getDateList;
 
 @Controller
 @AllArgsConstructor
-//@RequestMapping(value = "/login2")
 public class UserController {
 
     private UserService userService;
@@ -31,17 +30,6 @@ public class UserController {
         model.addAttribute("diaryList", diaryList);
 
         return "view/main";
-    }
-
-    @GetMapping("/test")
-    public String dispTest(Model model) {
-        String username = "aaa@example.com";
-        LocalDate today = LocalDate.now();
-        LocalDate minus100Day = today.minusDays(100);
-        List<DiaryDto> myDiaryList = diaryService.getPostByDate(username, today, minus100Day);
-        model.addAttribute("myDiaryList", myDiaryList);
-
-        return "view/test";
     }
 
     // 내 정보 페이지

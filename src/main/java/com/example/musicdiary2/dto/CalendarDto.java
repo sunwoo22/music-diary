@@ -1,4 +1,4 @@
-package com.example.musicdiary2.domain;
+package com.example.musicdiary2.dto;
 
 import com.example.musicdiary2.dto.DiaryDto;
 import lombok.Data;
@@ -6,7 +6,7 @@ import lombok.ToString;
 
 @Data
 @ToString
-public class DateData {
+public class CalendarDto {
 
     int day;
     String fill;
@@ -14,7 +14,7 @@ public class DateData {
     int x;
     int y;
 
-    public DateData(int day, DiaryDto diaryDto, int x, int y) {
+    public CalendarDto(int day, DiaryDto diaryDto, int x, int y) {
         this.day = day;
         this.diaryDto = diaryDto;
         this.fill = moodColor(diaryDto.getMood());
@@ -22,7 +22,7 @@ public class DateData {
         this.y = y;
     }
 
-    public DateData(int day, DiaryDto diaryDto, String fill, int x, int y) {
+    public CalendarDto(int day, DiaryDto diaryDto, String fill, int x, int y) {
         this.day = day;
         this.diaryDto = diaryDto;
         this.fill = fill;
