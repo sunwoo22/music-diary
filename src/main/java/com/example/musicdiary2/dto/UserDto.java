@@ -17,7 +17,10 @@ public class UserDto {
     private LocalDate createdDate;
     private LocalDate modifiedDate;
 
-    public UserEntity toEntity(){
+    private String authkey; // 인증키
+    private int authstatus; // 권한확인
+
+    public UserEntity toEntity() {
         return UserEntity.builder()
                 .id(id)
                 .email(email)

@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Entity
+@Entity(name = "user")
 @Table(name = "user")
 public class UserEntity {
 
@@ -22,6 +22,12 @@ public class UserEntity {
 
     @Column(length = 100, nullable = false)
     private String password;
+
+    @Column
+    private String authkey; // 인증키
+
+    @Column
+    private int authstatus; // 권한확인
 
     @Builder
     public UserEntity(Long id, String email, String password) {

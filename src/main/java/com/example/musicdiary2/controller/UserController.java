@@ -5,14 +5,22 @@ import com.example.musicdiary2.dto.UserDto;
 import com.example.musicdiary2.service.DiaryService;
 import com.example.musicdiary2.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.ServletContext;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 import static com.example.musicdiary2.calendar.Calendar.getDateList;
 
@@ -20,8 +28,73 @@ import static com.example.musicdiary2.calendar.Calendar.getDateList;
 @AllArgsConstructor
 public class UserController {
 
+//    static Logger logger = LogManager.getLogger(UserController.class);
+
+    @Autowired
+    ServletContext servletContext;
+
+    BCryptPasswordEncoder pwdEncoder;
+
     private UserService userService;
     private DiaryService diaryService;
+
+    // 회원가입 get
+    @GetMapping("/user/register")
+    public String getRegister() throws Exception {
+        return "signuplogin/register";
+    }
+
+    // 회원가입 post
+    @PostMapping("/user/register")
+    public String postResgister(UserDto userDto, Model model) throws Exception {
+        // 이메일 중복여부 확인 (사용가능하면 0)
+        int result = userService.idChk(userDto.getEmail());
+
+        try {
+            // 이메일 중복일 때
+            if (result == 1) {
+                model.addAttribute("result", "fail");
+//                model.addAttribute("refreshUrl", "2;url=/user/register");
+                return "redirect:/user/register";
+            // 이메일 중복 아닐 때
+            } else {
+                // 비밀번호 암호화 후 저장
+//                String inputPass = userDto.getPassword();
+//                String pwd = pwdEncoder.encode(inputPass);
+//                userDto.setPassword(pwd);
+
+                // db에 회원가입 정보 저장, authkey 생성, 이메일 발송
+                userService.register1(userDto);
+                model.addAttribute("result", "ok");
+//                model.addAttribute("refreshUrl", "2;url=/user/login");
+                return "redirect:/user/login";
+            }
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+
+
+
+    }
+
+    // 이메일 인증 확인 후
+    @GetMapping("/emailConfirm")
+    public String emailConfirm(String email, Model model) throws Exception {
+        // authstatus 권한 상태 1로 변겅
+        userService.updateAuthstatus(email);
+
+        model.addAttribute("email", email);
+
+        return "signuplogin/emailConfirm";
+    }
+
+    // 이메일 중복 체크
+    @ResponseBody
+    @PostMapping("/user/idChk")
+    public int idChk(UserDto userDto) throws Exception {
+        int result = userService.idChk(userDto.getEmail());
+        return result;
+    }
 
     // 메인 페이지
     @GetMapping("/main")
