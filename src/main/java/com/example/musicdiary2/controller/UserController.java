@@ -17,16 +17,12 @@ import javax.servlet.ServletContext;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
 import static com.example.musicdiary2.calendar.Calendar.getDateList;
 
 @Controller
 @AllArgsConstructor
 public class UserController {
-
-//    static Logger logger = LogManager.getLogger(UserController.class);
 
     @Autowired
     ServletContext servletContext;
@@ -48,28 +44,21 @@ public class UserController {
         // 이메일 중복여부 확인 (사용가능하면 0)
         int result = userService.idChk(userDto.getEmail());
 
-//        try {
+        try {
             // 이메일 중복일 때
             if (result == 1) {
                 model.addAttribute("result", "fail");
-//                model.addAttribute("refreshUrl", "2;url=/user/register");
                 return "redirect:/user/register";
             // 이메일 중복 아닐 때
             } else {
-                // 비밀번호 암호화 후 저장
-//                String inputPass = userDto.getPassword();
-//                String pwd = pwdEncoder.encode(inputPass);
-//                userDto.setPassword(pwd);
-
                 // db에 회원가입 정보 저장, authkey 생성, 이메일 발송
                 userService.register(userDto);
                 model.addAttribute("result", "ok");
-//                model.addAttribute("refreshUrl", "2;url=/user/login");
                 return "redirect:/user/login";
             }
-//        } catch (Exception e) {
-//            throw new RuntimeException();
-//        }
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 
     // 이메일 인증 확인 후
@@ -79,7 +68,6 @@ public class UserController {
         userService.updateAuthstatus(email);
 
         model.addAttribute("email", email);
-
         return "signuplogin/emailConfirm";
     }
 
@@ -90,7 +78,6 @@ public class UserController {
         int result = userService.idChk(userDto.getEmail());
         return result;
     }
-
 
     // 메인 페이지
     @GetMapping("/main")
@@ -114,19 +101,6 @@ public class UserController {
         model.addAttribute("dateList", getDateList(calDiaryList));
 
         return "view/mypage";
-    }
-
-    // 회원가입 페이지
-    @GetMapping("/user/signup")
-    public String dispSignup() {
-        return "signuplogin/signup";
-    }
-
-    // 회원가입 처리
-    @PostMapping("/user/signup")
-    public String execSignup(UserDto userDto) {
-        userService.joinUser(userDto);
-        return "redirect:/user/login";
     }
 
     // 로그인 페이지

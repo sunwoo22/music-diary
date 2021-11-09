@@ -1,5 +1,6 @@
 package com.example.musicdiary2.config;
 
+import com.example.musicdiary2.login.LoginFailHandler;
 import com.example.musicdiary2.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -25,6 +27,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationFailureHandler failureHandler() {
+        return new LoginFailHandler();
     }
 
     @Override
@@ -52,6 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/user/login")
                 .defaultSuccessUrl("/user/login/result")
 //                .failureUrl("/user/loginFailure")
+                .failureHandler(failureHandler())
                 .permitAll()
             .and() // 로그아웃 설정
                 .logout()
@@ -67,6 +75,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable();
 
     }
-
 
 }
