@@ -30,9 +30,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
     implementation 'org.jsoup:jsoup:1.14.2'
-
-    implementation 'com.sun.mail:javax.mail:1.4.7'
-    implementation 'org.springframework:spring-context-support:5.2.6.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
 
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'

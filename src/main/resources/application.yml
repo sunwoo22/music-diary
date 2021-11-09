@@ -26,6 +26,22 @@ spring:
       filter:
         enabled: true
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: username2da
+    password: ylxpssgawcnodtky
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: ture
+          ssl:
+            enable: true
+            trust: smtp.gmail.com
+#          protocols: TLSv1.2
+
 logging:
   level:
     org:

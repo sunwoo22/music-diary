@@ -6,13 +6,11 @@ import com.example.musicdiary2.service.DiaryService;
 import com.example.musicdiary2.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.ServletContext;
@@ -50,7 +48,7 @@ public class UserController {
         // 이메일 중복여부 확인 (사용가능하면 0)
         int result = userService.idChk(userDto.getEmail());
 
-        try {
+//        try {
             // 이메일 중복일 때
             if (result == 1) {
                 model.addAttribute("result", "fail");
@@ -64,17 +62,14 @@ public class UserController {
 //                userDto.setPassword(pwd);
 
                 // db에 회원가입 정보 저장, authkey 생성, 이메일 발송
-                userService.register1(userDto);
+                userService.register(userDto);
                 model.addAttribute("result", "ok");
 //                model.addAttribute("refreshUrl", "2;url=/user/login");
                 return "redirect:/user/login";
             }
-        } catch (Exception e) {
-            throw new RuntimeException();
-        }
-
-
-
+//        } catch (Exception e) {
+//            throw new RuntimeException();
+//        }
     }
 
     // 이메일 인증 확인 후
@@ -95,6 +90,7 @@ public class UserController {
         int result = userService.idChk(userDto.getEmail());
         return result;
     }
+
 
     // 메인 페이지
     @GetMapping("/main")

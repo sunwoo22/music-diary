@@ -7,8 +7,7 @@ import com.example.musicdiary2.dto.UserDto;
 import com.example.musicdiary2.mail.MailHandler;
 import com.example.musicdiary2.mail.Tempkey;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,7 +16,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,8 +30,6 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
 
     private UserRepository userRepository;
-
-//    private PasswordEncoder passwordEncoder;
 
     // 이메일 인증
     private JavaMailSender mailSender;
@@ -50,6 +46,7 @@ public class UserService implements UserDetailsService {
     // 회원가입 - 아이디 중복 체크
     @Transactional
     public void register1(UserDto userDto) throws Exception {
+        // 비밀번호 암호화
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
@@ -59,6 +56,7 @@ public class UserService implements UserDetailsService {
     // 회원가입 - 이메일 인증
     @Transactional
     public void register(UserDto userDto) throws Exception {
+        // 비밀번호 암호화
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
@@ -72,16 +70,40 @@ public class UserService implements UserDetailsService {
         userRepository.createAuthkey(userDto.getEmail(), key);
 
         // 메일 발송
-        MailHandler sendMail = new MailHandler(mailSender);
+//        SimpleMailMessage message = new SimpleMailMessage();
+//        message.setTo(userDto.getEmail());
+//        message.setFrom("username2da@gmail.com");
+//        message.setSubject("회원가입 확인 메일입니다.");
+//        message.setText(new StringBuffer()
+//                .append("<h3>가입을 시도한 본인 이메일이 맞는지 확인하고 있습니다.</h3>")
+//                .append("<a href='http://localhost:8080/user/emailConfirm?email=")
+//                .append(userDto.getEmail())
+//                .append("&key=")
+//                .append(key)
+//                .append("' target='_blenk'>회원가입 완료를 위해 이곳을 눌러주세요.</a>").toString());
+//        mailSender.send(message);
 
-        sendMail.setSubject("회원가입 확인 메일입니다.");
-        sendMail.setText(new StringBuffer().append("<h3>가입을 시도한 본인 이메일이 맞는지 확인하고 있습니다.</h3>")
-                .append("<a href='http://localhost:8080/user/emailConfirm?email=")
-                .append(userDto.getEmail()).append("&key=").append(key)
-                .append("' target='_blenk'>회원가입 완료를 위해 이곳을 눌러주세요.</a>").toString());
-        sendMail.setFrom("mygummy2@gmail.com", "jointestmail");
-        sendMail.setTo(userDto.getEmail());
-        sendMail.send();
+        // 메일 발송
+        MailHandler mailHandler = new MailHandler(mailSender);
+
+        mailHandler.setTo(userDto.getEmail());
+        mailHandler.setFrom("dlatjsdn0622@naver.com");
+        mailHandler.setSubject("회원가입 확인 메일입니다.");
+
+        String htmlContent = "<h3>가입을 시도한 본인 이메일이 맞는지 확인하고 있습니다.</h3>"
+                + "<a href='http://localhost:8080/user/emailConfirm?email=" + userDto.getEmail()
+                + "&key=" + key
+                + "' target='_blenk'>회원가입 완료를 위해 이곳을 눌러주세요.</a>";
+        mailHandler.setText(htmlContent, true);
+
+//        mailHandler.setText(new StringBuffer()
+//                .append("<h3>가입을 시도한 본인 이메일이 맞는지 확인하고 있습니다.</h3>")
+//                .append("<a href='http://localhost:8080/user/emailConfirm?email=")
+//                .append(userDto.getEmail()).append("&key=").append(key)
+//                .append("' target='_blenk'>회원가입 완료를 위해 이곳을 눌러주세요.</a>")
+//                .toString());
+
+        mailHandler.send();
     }
 
     // authstatus 1로 변경
