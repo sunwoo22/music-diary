@@ -1,0 +1,57 @@
+## music-diary
+
+![](https://img.shields.io/badge/Java-007396?style=flat&logo=Java&logoColor=white)
+![](https://img.shields.io/badge/IntelliJ-000000?style=flat&logo=IntelliJIDEA&logoColor=white)
+![](https://img.shields.io/badge/Gradle-02303A?style=flat&logo=Gradle&logoColor=white)
+![](https://img.shields.io/badge/SpringBoot-6DB33F?style=flat&logo=SpringBoot&logoColor=white)
+![](https://img.shields.io/badge/SpringSecurity-6DB33F?style=flat&logo=SpringSecurity&logoColor=white)
+![](https://img.shields.io/badge/Hibernate-59666C?style=flat&logo=Hibernate&logoColor=white)
+![](https://img.shields.io/badge/Thymeleaf-005F0F?style=flat&logo=Thymeleaf&logoColor=white)
+![](https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white)
+<br>
+
+<br>
+
+    src
+    ㄴmain
+        ㄴjava/com/example/musicdiary2
+            ㄴcalendar
+                ㄴCalendar.java
+            ㄴconfig
+                ㄴMailConfig.java
+                ㄴSecurityConfig.java
+            ㄴcontroller
+                ㄴDiaryController.java
+                ㄴUserController.java
+            ㄴdomain
+                ㄴentity
+                    ㄴDiaryEntity.java
+                    ㄴLikeEntity.java
+                    ㄴTimeEntity.java
+                    ㄴUserEntity.java
+                ㄴrepository
+                    ㄴDiaryRepository.java
+                    ㄴLikeRepository.java
+                    ㄴUserRepository.java
+                ㄴRole.java
+            ㄴdto
+                ㄴCalendarDto.java
+                ㄴDiaryDto.java
+                ㄴLikeDto.java
+                ㄴUserDto.java
+            ㄴlogin
+                ㄴLoginFailHandler.java
+            ㄴmail
+                ㄴMailHandler.java
+                ㄴTempkey.java
+            ㄴmusic
+                ㄴMusicInfo.java
+            ㄴservice
+                ㄴDiaryService.java
+                ㄴLikeService.java
+                ㄴUserService.java
+            ㄴMusicDiary2Application.java
+        ㄴresources
+            ㄴapplication.yml
+    ㄴtest
+    build.gradle
