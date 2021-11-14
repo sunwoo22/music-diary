@@ -21,11 +21,12 @@ public class DiaryDto {
 //    private LocalDateTime modifiedDate;
     private int unopen; // 글 공개 / 비공개
     private int views; // 조회수
+    private int likes; // 추천수
 
     @Builder
     public DiaryDto(Long id, String writer, String title, String singer,
                     String imgSrc, int mood, String content, LocalDate createdDate,
-                    int unopen, int views) {
+                    int unopen, int views, int likes) {
         this.id = id;
         this.writer = writer;
         this.title = title;
@@ -37,6 +38,7 @@ public class DiaryDto {
 //        this.modifiedDate = modifiedDate;
         this.unopen = unopen;
         this.views = views;
+        this.likes = likes;
     }
 
     public DiaryEntity toEntity(){
@@ -50,6 +52,7 @@ public class DiaryDto {
                 .content(content)
                 .unopen(unopen)
                 .views(views)
+                .likes(likes)
                 .build();
         return diaryEntity;
     }

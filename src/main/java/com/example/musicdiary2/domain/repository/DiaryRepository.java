@@ -40,6 +40,18 @@ public interface DiaryRepository extends JpaRepository<DiaryEntity, Long> {
     @Query("update diary d set d.views = d.views + 1 where d.id = :id")
     void increaseViews(@Param("id") Long id);
 
+    // 추천수 증가
+    @Transactional
+    @Modifying
+    @Query("update diary d set d.likes = d.likes + 1 where d.id = :id")
+    void increaseLikes(@Param("id") Long id);
+
+    // 추천수 감소
+    @Transactional
+    @Modifying
+    @Query("update diary d set d.likes = d.likes - 1 where d.id = :id")
+    void decreaseLikes(@Param("id") Long id);
+
     // 글 공개/비공개 변경
     @Transactional
     @Modifying

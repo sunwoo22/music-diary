@@ -27,6 +27,17 @@ public class DiaryService {
         diaryRepository.increaseViews(id);
     }
 
+    // 추천수 증가하기
+    @Transactional
+    public void increaseLikes(Long id) { diaryRepository.increaseLikes(id); }
+
+    // 추천수 감소하기
+    @Transactional
+    public void decreaseLikes(Long id) {
+        diaryRepository.decreaseLikes(id);
+    }
+
+
     // 전체 데이터 가져오기 (공개만)
     @Transactional
     public List<DiaryDto> getDiaryList() {
@@ -100,19 +111,6 @@ public class DiaryService {
 
         DiaryDto diaryDto = convertEntityToDto(diaryEntity);
 
-//        DiaryDto diaryDto = DiaryDto.builder()
-//                .id(diaryEntity.getId())
-//                .writer(diaryEntity.getWriter())
-//                .title(diaryEntity.getTitle())
-//                .singer(diaryEntity.getSinger())
-//                .imgSrc(diaryEntity.getImgSrc())
-//                .mood(diaryEntity.getMood())
-//                .content(diaryEntity.getContent())
-//                .createdDate(diaryEntity.getCreatedDate())
-//                .unopen(diaryEntity.getUnopen())
-//                .views(diaryEntity.getViews())
-//                .build();
-
         return diaryDto;
     }
 
@@ -150,6 +148,7 @@ public class DiaryService {
                 .createdDate(diaryEntity.getCreatedDate())
                 .unopen(diaryEntity.getUnopen())
                 .views(diaryEntity.getViews())
+                .likes(diaryEntity.getLikes())
                 .build();
     }
 

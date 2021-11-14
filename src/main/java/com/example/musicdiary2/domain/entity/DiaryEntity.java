@@ -40,10 +40,13 @@ public class DiaryEntity extends TimeEntity {
     @Column(length = 6, columnDefinition = "int default 0")
     private int views; // 조회수
 
+    @Column(length = 6, columnDefinition = "int default 0")
+    private int likes; // 추천수
+
     @Builder
     public DiaryEntity(Long id, String writer, String title, String singer,
                        String imgSrc, int mood, String content,
-                       int unopen, int views) {
+                       int unopen, int views, int likes) {
         this.id = id;
         this.writer = writer;
         this.title = title;
@@ -53,6 +56,7 @@ public class DiaryEntity extends TimeEntity {
         this.content = content;
         this.unopen = unopen;
         this.views = views;
+        this.likes = likes;
     }
 
     @Override
@@ -67,6 +71,7 @@ public class DiaryEntity extends TimeEntity {
                 ", content='" + content + '\'' +
                 ", open=" + unopen +
                 ", views=" + views +
+                ", likes=" + likes +
                 '}';
     }
 

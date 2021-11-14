@@ -17,10 +17,10 @@ public class LikeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 4, columnDefinition = "int default 0")
+    @Column(nullable = false)
     private Long diary_id;
 
-    @Column(length = 4, columnDefinition = "int default 0")
+    @Column(nullable = false)
     private Long user_id;
 
     @Builder

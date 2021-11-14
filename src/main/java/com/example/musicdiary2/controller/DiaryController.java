@@ -97,34 +97,14 @@ public class DiaryController {
 
         if (checkLike) {
             likeService.cancelLike(diary_id, user_id);
+            diaryService.decreaseLikes(diary_id);
         } else {
             likeService.pushLike(diary_id, user_id);
+            diaryService.increaseLikes(diary_id);
         }
 
         return "redirect:/diary/" + diary_id;
     }
-
-    @PostMapping("/diary/unlike")
-    public String cancelLike(@RequestParam("diary_id") Long diary_id,
-                           @RequestParam("username") String username) {
-        Long user_id = userService.getUserId(username);
-        likeService.cancelLike(diary_id, user_id);
-
-        return "redirect:/diary/" + diary_id;
-    }
-
-//    @GetMapping("/diary/edit/{id}")
-//    public String edit(@PathVariable("id") Long id, Model model) {
-//        DiaryDto diaryDto = diaryService.getPost(id);
-//        model.addAttribute("diaryDto", diaryDto);
-//        return "diary/update.html";
-//    }
-//
-//    @PutMapping("/diary/edit/{id}")
-//    public String update(DiaryDto diaryDto) throws IOException {
-//        diaryService.savePost(diaryDto);
-//        return "redirect:/";
-//    }
 
     @PutMapping("/diary/edit/{id}")
     public String updateUnopen(@PathVariable("id") Long id,

@@ -21,6 +21,7 @@
         <th>앨범아트</th>
         <th>작성자</th>
         <th>조회수</th>
+        <th>추천수</th>
     </tr>
     </thead>
 
@@ -42,6 +43,9 @@
         </td>
         <td>
             <span th:text="${diary.views}"></span>
+        </td>
+        <td>
+            <span th:text="${diary.likes}"></span>
         </td>
 <!--        <td>-->
 <!--            <span th:text="${#temporals.format(diary.createdDate, 'yyyy-MM-dd HH:mm')}"></span>-->
